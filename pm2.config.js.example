@@ -1,0 +1,23 @@
+module.exports = {
+  apps : [
+      {
+      "name": "TrendingCXDX-polygon-WMATIC-USDC",
+      "cwd": "/root/mygo/src/github.com/fatter-bo/TrendingCXDX-polygon-WMATIC-USDC",
+      "script": "npx",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss.SSS",
+      "error_file": "logs/TrendingCXDX-polygon-WMATIC-USDC.log.sterr",
+      "out_file": "logs/TrendingCXDX-polygon-WMATIC-USDC.log",
+      "pid_file": "pids/TrendingCXDX-polygon-WMATIC-USDC-api.pid",
+      "instances": 1,
+      "min_uptime": "1s",
+      "max_restarts": 1,
+      "merge_logs": true,
+      "args": " hardhat run --network polygon scripts/TrendingCXDX.ts",
+      "exec_interpreter": "npx",
+      "exec_mode": "fork",
+      "autorestart": false,
+      "vizion": false
+    }
+  ]
+}
+

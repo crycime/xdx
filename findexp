@@ -1,0 +1,7 @@
+#!/bin/bash
+
+tmp="$*"
+arg=${tmp// /.}
+find ./ ! -path "*/build/*" ! -path "*/typechain/*" ! -path "*node_modules*" ! -path "*.d.ts" -type f -iname \*.js -exec grep -n --color  -H $arg \{\} \;
+find ./ ! -path "*/build/*" ! -path "*/typechain/*"  ! -path "*node_modules*" ! -path "*.d.ts"  -type f -iname \*.ts -exec grep -n --color  -H $arg \{\} \;
+find ./ ! -path "*/build/*" ! -path "*/typechain/*"  ! -path "*node_modules*" ! -path "*.d.ts" -type f -iname \*.sol -exec grep -n --color  -H $arg \{\} \;

@@ -1,0 +1,585 @@
+import { BigNumber } from 'ethers';
+import { ExchangeMarket, TokenInfoEnum, HedgeContract, CxContract, PositionData } from './src/constants';
+
+export let ExchangeMarkets: ExchangeMarket[] = [
+  //1
+  {
+    symbol: 'UNIV2-USDC-WETH-3000',
+    address: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 71,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //1
+  {
+    symbol: 'UNIV2-WETH-USDT-3000',
+    address: '0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852',
+    token0: TokenInfoEnum.WETH,
+    token1: TokenInfoEnum.USDT,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 71,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //2
+  {
+    symbol: 'UNIV3-USDC-USDT-500',
+    address: '0x3F5228d0e7D75467366be7De2c31D0d098bA2C23',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.USDT,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //3
+  {
+    symbol: 'UNIV3-USDC-DAI-500',
+    address: '0x5f69C2ec01c22843f8273838d570243fd1963014',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.DAI,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //1
+  {
+    symbol: 'UNIV3-USDC-WETH-500',
+    address: '0x45dDa9cb7c25131DF268515131f647d726f50608',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //6
+  {
+    symbol: 'UNIV3-USDC-WETH-3000',
+    address: '0x0e44cEb592AcFC5D3F09D996302eB4C499ff8c10',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 72,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //8
+  {
+    symbol: 'UNIV3-WETH-USDT-3000',
+    address: '0x4CcD010148379ea531D6C587CfDd60180196F9b1',
+    token0: TokenInfoEnum.WETH,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 72,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //6
+  {
+    symbol: 'UNIV3-WBTC-WETH-500',
+    address: '0x50eaEDB835021E4A108B7290636d62E9765cc6d7',
+    token0: TokenInfoEnum.WBTC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //7
+  {
+    symbol: 'UNIV3-WBTC-WETH-3000',
+    address: '0xfe343675878100b344802A6763fd373fDeed07A4',
+    token0: TokenInfoEnum.WBTC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 72,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //4
+  {
+    symbol: 'UNIV3-WMATIC-WETH-500',
+    address: '0x86f1d8390222A3691C28938eC7404A1661E618e0',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.WETH,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //10
+  {
+    symbol: 'UNIV3-WMATIC-USDC-500',
+    address: '0xA374094527e1673A86dE625aa59517c5dE346d32',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDC,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    isAn: true,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //9
+  {
+    symbol: 'UNIV3-WMATIC-USDC-3000',
+    address: '0x88f3C15523544835fF6c738DDb30995339AD57d6',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDC,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 72,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'UNIV3-WMATIC-USDT-3000',
+    address: '0x781067Ef296E5C4A4203F81C593274824b7C185d',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 72,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'UNIV3-WMATIC-USDT-500',
+    address: '0x9B08288C3Be4F62bbf8d1C20Ac9C5e6f9467d8B7',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ3',
+    dxType: 71,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //1
+  {
+    symbol: 'BALANCERV260-WMATIC-WETH-2500',
+    address: '0x0297e37f1873D2DAb4487Aa67cD56B58E2F27875',
+    balancerPoolId: '0x0297e37f1873d2dab4487aa67cd56b58e2f27875000100000000000000000002',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'balancerv2',
+    dxType: 60,
+    fee: 2500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    weight: BigNumber.from(10).pow(18), //1e18
+    weight0: BigNumber.from(10).pow(18).div(4), //1e18
+    weight1: BigNumber.from(10).pow(18).div(4), //1e18
+    MaxTicketSize: 25, //10W U
+  },
+  //1
+  {
+    symbol: 'BALANCERV260-WMATIC-USDC-2500',
+    address: '0x0297e37f1873D2DAb4487Aa67cD56B58E2F27875',
+    balancerPoolId: '0x0297e37f1873d2dab4487aa67cd56b58e2f27875000100000000000000000002',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDC,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'balancerv2',
+    dxType: 60,
+    fee: 2500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    weight: BigNumber.from(10).pow(18), //1e18
+    weight0: BigNumber.from(10).pow(18).div(4), //1e18
+    weight1: BigNumber.from(10).pow(18).div(4), //1e18
+    MaxTicketSize: 25, //10W U
+  },
+  //1
+  {
+    symbol: 'BALANCERV260-USDC-WETH-2500',
+    address: '0x0297e37f1873D2DAb4487Aa67cD56B58E2F27875',
+    balancerPoolId: '0x0297e37f1873d2dab4487aa67cd56b58e2f27875000100000000000000000002',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'balancerv2',
+    dxType: 60,
+    fee: 2500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    weight: BigNumber.from(10).pow(18), //1e18
+    weight0: BigNumber.from(10).pow(18).div(4), //1e18
+    weight1: BigNumber.from(10).pow(18).div(4), //1e18
+    MaxTicketSize: 25, //10W U
+  },
+  //1
+  {
+    symbol: 'BALANCERV260-USDC-WETH-250',
+    address: '0x10f21C9bD8128a29Aa785Ab2dE0d044DCdd79436',
+    balancerPoolId: '0x10f21c9bd8128a29aa785ab2de0d044dcdd79436000200000000000000000059',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'balancerv2',
+    dxType: 60,
+    fee: 250, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    weight: BigNumber.from(10).pow(18), //1e18
+    weight0: BigNumber.from(10).pow(18).div(2), //1e18
+    weight1: BigNumber.from(10).pow(18).div(2), //1e18
+    MaxTicketSize: 25, //10W U
+  },
+  //1
+  {
+    symbol: 'BALANCERV261-USDC-USDT-100',
+    address: '0x0d34e5dD4D8f043557145598E4e2dC286B35FD4f',
+    balancerPoolId: '0x0d34e5dd4d8f043557145598e4e2dc286b35fd4f000000000000000000000068',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'balancerv2',
+    dxType: 61,
+    fee: 100, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 25, //10W U
+  },
+  //10
+  {
+    symbol: 'SUSHI-USDC-WETH-3000',
+    address: '0x34965ba0ac2451A34a0471F04CCa3F990b8dea27',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'SUSHI-WBTC-WETH-3000',
+    address: '0xE62Ec2e799305E0D367b0Cc3ee2CdA135bF89816',
+    token0: TokenInfoEnum.WBTC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'SUSHI-WMATIC-WETH-3000',
+    address: '0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'SUSHI-WMATIC-USDC-3000',
+    address: '0xcd353F79d9FADe311fC3119B841e1f456b54e858',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDC,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'SUSHI-WETH-USDT-3000',
+    address: '0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9',
+    token0: TokenInfoEnum.WETH,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'QUICK-USDC-WETH-3000',
+    address: '0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d',
+    token0: TokenInfoEnum.USDC,
+    token1: TokenInfoEnum.WETH,
+    side: 1, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'QUICK-WETH-USDT-3000',
+    address: '0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046',
+    token0: TokenInfoEnum.WETH,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'QUICK-WMATIC-USDC-3000',
+    address: '0x6e7a5FAFcec6BB1e78bAE2A1F0B612012BF14827',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDC,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'QUICK-WMATIC-WETH-3000',
+    address: '0xadbF1854e5883eB8aa7BAf50705338739e558E5b',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.WETH,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //10
+  {
+    symbol: 'QUICK-WMATIC-USDT-3000',
+    address: '0x604229c960e5CACF2aaEAc8Be68Ac07BA9dF81c3',
+    token0: TokenInfoEnum.WMATIC,
+    token1: TokenInfoEnum.USDT,
+    side: 0, //1买0
+    type: 'DX',
+    ex: 'univ2',
+    dxType: 11,
+    fee: 3000, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //11
+  //  {
+  //    symbol: 'MATICUSDT',
+  //    status: 'MATICUSDT',
+  //    address: 'binance.MATICUSDT',
+  //    token0: TokenInfoEnum.MATIC,
+  //    token1: TokenInfoEnum.USD,
+  //    side: 0, //1买0
+  //    type: 'CX',
+  //    ex: 'binance',
+  //    priority:1,
+  //    dxType: 0,
+  //    fee: 500, //百万分之一
+  //    gas: 0, //gasCost = gas/MaxTicketSize
+  //    MaxTicketSize: 100000, //10W U
+  //  },
+  //   //11
+  {
+    symbol: 'MATIC/USD',
+    status: 'MATICUSDT',
+    address: 'ftx.MATICUSDT',
+    token0: TokenInfoEnum.MATIC,
+    token1: TokenInfoEnum.USD,
+    side: 0, //1买0
+    type: 'CX',
+    ex: 'ftx',
+    priority: 0,
+    isAn: true,
+    dxType: 0,
+    fee: 500, //百万分之一
+    gas: 0, //gasCost = gas/MaxTicketSize
+    MaxTicketSize: 100000, //10W U
+  },
+  //13
+  // {
+  //   symbol: 'USDDAI',
+  //   address: 'bridge.USDDAI',
+  //   token0: TokenInfoEnum.USD,
+  //   token1: TokenInfoEnum.DAI,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //14
+  // {
+  //   symbol: 'USDUSDT',
+  //   address: 'bridge.USDUSDT',
+  //   token0: TokenInfoEnum.USD,
+  //   token1: TokenInfoEnum.USDT,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //15
+  // {
+  //   symbol: 'USDUSDC',
+  //   address: 'bridge.USDUSDC',
+  //   token0: TokenInfoEnum.USD,
+  //   token1: TokenInfoEnum.USDC,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //16
+  // {
+  //   symbol: 'USDTDAI',
+  //   address: 'bridge.USDTDAI',
+  //   token0: TokenInfoEnum.USDT,
+  //   token1: TokenInfoEnum.DAI,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //17
+  // {
+  //   symbol: 'USDTUSDC',
+  //   address: 'bridge.USDTUSDC',
+  //   token0: TokenInfoEnum.USDT,
+  //   token1: TokenInfoEnum.USDC,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //18
+  // {
+  //   symbol: 'ETHWETH',
+  //   address: 'bridge.ETHWETH',
+  //   token0: TokenInfoEnum.ETH,
+  //   token1: TokenInfoEnum.WETH,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //19
+  // {
+  //   symbol: 'BTCWBTC',
+  //   address: 'bridge.BTCWBTC',
+  //   token0: TokenInfoEnum.BTC,
+  //   token1: TokenInfoEnum.WBTC,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //19
+  // {
+  //   symbol: 'MATICWMATIC',
+  //   address: 'bridge.MATICWMATIC',
+  //   token0: TokenInfoEnum.MATIC,
+  //   token1: TokenInfoEnum.WMATIC,
+  //   side: 0, //1买0
+  //   type: 'BRIDGE',
+  //   ex: 'bridge',
+  //   dxType: 0,
+  //   fee: 0, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+  // //10
+  // {
+  //   symbol: 'BTCETH',
+  //   token0: TokenInfoEnum.BTC,
+  //   token1: TokenInfoEnum.ETH,
+  //   side: 0, //1买0
+  //   type: 'CX',
+  //   fee: 500, //百万分之一
+  //   gas: 0, //gasCost = gas/MaxTicketSize
+  //   MaxTicketSize: 100000, //10W U
+  // },
+];
